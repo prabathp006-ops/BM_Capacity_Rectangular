@@ -75,16 +75,15 @@ def str_fun_2(string_r, var_1, string_l, space_cm, numer_1, dim_unt):
     return HTML(html_str)
 
 def str_fun_3(string_r, var_1, string_l, space_cm, numer_1, numer_2, dim_unt):
-    html_str = f"""
-    $$
-    \\begin{{align}}
-    \\text{{{string_r}}} {var_1} \\hspace{{{space_cm}cm}} &= {string_l} \\\\
-    \\ &= {numer_1} \\\\
-    \\ &= {numer_2} \ {dim_unt} 
-    \\end{{align}}
-    $$
-    """
-    return HTML(html_str)
+    st.latex(rf"""
+    \begin{{align}}
+    \text{{{string_r}}} {var_1} \hspace{{{space_cm}cm}} &= {string_l} \\
+    &= {numer_1} \\
+    &= {numer_2}\;\text{{{dim_unt}}}
+    \end{{align}}
+    """)
+    return ()
+
 
 def frac(numer, denom):
     return f"\\frac{{{numer}}}{{{denom}}}"
@@ -140,17 +139,13 @@ def beam_dim_1(width, depth):
     return ()
 
 def rein_prop_1(bar_nos, bar_dia, bar_area):
-
     header_1("2", "Reinforcement Properties")
-    z1 = str_fun_1("Number of rebars, ", "N_{bars}", bar_nos, 0, "No's")
-    display(z1)
-    z1 = str_fun_1("Diameter of rebar, ", "d_{bar}", bar_dia, 0, "in")
-    display(z1)
+    str_fun_1("Number of rebars, ", "N_{bars}", bar_nos, 0, "No's")
+    str_fun_1("Diameter of rebar, ", "d_{bar}", bar_dia, 0, "in")
     fract   = frac("\\pi", 4)
     str_eq  = "{N_{bars}} \\cdot \\frac{\\pi}{4} \\cdot {d_{bar}}^{2}"
     numer_1 = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{2}"
-    z1      = str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
-    display(z1)
+    str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
     return ()
 
 def mat_prop_1(f_y, f_c, beta_1):
