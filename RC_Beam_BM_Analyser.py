@@ -1,0 +1,355 @@
+import numpy as np
+import pandas as pd
+import random
+import matplotlib.pyplot as plt
+import math
+from IPython.display import display, Markdown
+from IPython.display import HTML
+from scipy.interpolate import interp1d
+
+import ast
+import ipywidgets as widgets
+from IPython.display import display
+import streamlit as st
+
+
+# Define widgets
+
+width       = 12
+depth       = 20
+bar_nos     = 4
+bar_dia     = 1.125
+f_y         = 60000
+f_c         = 4000
+cov_eff     = 2.5
+        
+# functions to display
+#stress block factor beta_1 calculator
+def beta_1_calc(f_c):
+    if f_c >= 2500 and f_c <= 4000:
+        beta_1 = 0.85
+    if f_c > 4000 and f_c < 8000:
+        beta_1 = 0.85 - .05/1000 * (f_c - 4000)
+    if f_c >= 8000:
+        beta_1 = 0.65
+    return beta_1
+
+# stress block factor α_{1}
+def alpha_1_calc(f_c):
+    if f_c < 10000:
+        alpha_1 = 0.85
+    else:
+        alpha_1 = 0.85 - 0.02*(f_c-10000)/1000
+    return alpha_1
+
+# strength reduction factor calculator
+def str_red_fact_calc(net_tens_e, f_y):
+    x        = np.array([60, 75, 80, 100]) #ksi
+    y        = np.array([0.002, 0.0028, 0.003, 0.004])
+    z        = np.array([0.005, 0.005, 0.0056, 0.008])
+# Create a linear interpolating function
+    f_linear_y = interp1d(x, y, kind='linear', bounds_error=False, fill_value=(y.min(), y.max()))
+    f_linear_z = interp1d(x, z, kind='linear', bounds_error=False, fill_value=(z.min(), z.max()))
+# Evaluate at new points
+    e_cl  = f_linear_y(f_y/1000)
+    e_tl  = f_linear_z(f_y/1000)
+    phi_1 = 0.75 + 0.15 * (net_tens_e - e_cl) / (e_tl - e_cl)
+
+    phi_2 = min(max(0.75, phi_1),0.9)
+
+    return phi_2, e_cl, e_tl
+    
+def str_fun_1(string_r, var_1, string_l, space_cm, dim_unt):
+    st.latex(rf"\text{{{string_r}}} {var_1} \hspace{{{space_cm}cm}} = {string_l}\;\text{{{dim_unt}}}")
+
+
+def str_fun_2(string_r, var_1, string_l, space_cm, numer_1, dim_unt):
+    html_str = f"""
+    $$
+    \\begin{{align}}
+    \\text{{{string_r}}} {var_1} \\hspace{{{space_cm}cm}} &= {string_l} \ { dim_unt} \\\\
+    \\ &= {numer_1} \ {dim_unt} 
+    \\end{{align}}
+    $$
+    """
+    return HTML(html_str)
+
+def str_fun_3(string_r, var_1, string_l, space_cm, numer_1, numer_2, dim_unt):
+    html_str = f"""
+    $$
+    \\begin{{align}}
+    \\text{{{string_r}}} {var_1} \\hspace{{{space_cm}cm}} &= {string_l} \\\\
+    \\ &= {numer_1} \\\\
+    \\ &= {numer_2} \ {dim_unt} 
+    \\end{{align}}
+    $$
+    """
+    return HTML(html_str)
+
+def frac(numer, denom):
+    return f"\\frac{{{numer}}}{{{denom}}}"
+
+def head_1(string_r, var_1):
+    html_str = f"""
+    $$
+    \\begin{{align}}
+    \\text{{{string_r}}} \\ {var_1}
+    \\end{{align}}
+    $$
+    """
+    return HTML(html_str)
+
+def range_1(l_val, u_val, var_1):
+    html_str1 = f"""
+    $$
+    \\begin{{align}}
+    {l_val} &\\leq \\hspace{{1cm}} {var_1} &\\leq {u_val} \\\\
+    \\end{{align}}
+    $$
+    """
+    return HTML(html_str1) 
+
+def range_2(l_val, var_1):
+    html_str1 = f"""
+    $$
+    \\begin{{align}}
+    {l_val} &\\leq \\hspace{{1cm}} {var_1} \\\\
+    \\end{{align}}
+    $$
+    """
+    return HTML(html_str1) 
+
+def clause_1(str_1):
+    return display(HTML(f"<div style='text-align: right'>{str_1}</div>"))
+
+def header_1(indx_1, str_1):
+    html_content = f"""
+    <ol start="{indx_1}">
+      <li><b>{str_1}</b></li>
+    </ol>
+    <hr>
+    """
+    display(HTML(html_content))
+
+def line_1():
+    html_content = f"""
+    <hr>
+    """
+    display(HTML(html_content))
+
+def beam_dim_1(width, depth):
+    header_1("1", "Beam Dimensions")
+    z1 = str_fun_1("Beam width, ", "b", width, 0, "in")
+    display(z1)
+    z1 = str_fun_1("Beam depth, ", "d", depth, 0, "in")
+    display(z1)
+    return ()
+
+def rein_prop_1(bar_nos, bar_dia, bar_area):
+
+    header_1("2", "Reinforcement Properties")
+    z1 = str_fun_1("Number of rebars, ", "N_{bars}", bar_nos, 0, "No's")
+    display(z1)
+    z1 = str_fun_1("Diameter of rebar, ", "d_{bar}", bar_dia, 0, "in")
+    display(z1)
+    fract   = frac("\\pi", 4)
+    str_eq  = "{N_{bars}} \\cdot \\frac{\\pi}{4} \\cdot {d_{bar}}^{2}"
+    numer_1 = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{2}"
+    z1      = str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
+    display(z1)
+    return ()
+
+def mat_prop_1(f_y, f_c, beta_1):
+    header_1("3", "Material Properties")
+    z1 = str_fun_1("Stress in tension reinforcement at nominal flexural resistence, ", "f_{s}", f_y/1000, 0, "ksi")
+    display(z1)
+    z1 = str_fun_1("Compressive strength of concrete at 28 days, ", "f'_{c}", f_c/1000, 0, "ksi")
+    display(z1)
+    return()
+
+def stress_block_b1(f_c, beta_1):
+
+    header_1("4", "Stress Block Factor, $\\beta_{1}$")
+    html_str_a1 = range_1(2.5, 4.0, "f'_{c}")
+    string_r  = "stress block factor, "
+    var_1     = "\\beta_{1}"
+    string_l  = f"{beta_1}"
+    dim_unt   = ""
+    html_str_a2 = str_fun_1(string_r, var_1, string_l, 0, dim_unt)
+    html_str_b1 = range_1(4.0, 8.0, "f'_{c}")
+    string_r = "stress block factor, "
+    var_1    = "\\beta_{1}"
+    str_eq   = "0.85 - 0.05 \\cdot ( \ f_{c} - 4 \ )"
+    numer_1  = f"0.85 - 0.05 \\cdot ( \ {f_c/1000} - 4 \ )"
+    string_l = beta_1
+    html_str_b2 = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
+    html_str_c1 = range_2(8.0, "f'_{c}")
+    if f_c >= 2500 and f_c <= 4000:
+        display(html_str_a1)
+        display(html_str_a2)
+    if f_c > 4000 and f_c < 8000:
+        display(html_str_b1)
+        display(html_str_b2)
+    if f_c >= 8000:
+        display(html_str_c1)
+        display(html_str_a2)
+    clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
+    return()
+
+def stress_block_a1(alpha_1, f_c):
+    html_str_a1 = range_2("f'_{c}", 10)
+    string_r  = "stress block factor, "
+    var_1     = "\\alpha_{1}"
+    string_l  = f"{alpha_1}"
+    dim_unt   = ""
+    html_str_a2 = str_fun_1(string_r, var_1, string_l, 0, dim_unt)
+    html_str_b1 = range_2(10.0, "f'_{c}")
+    string_r = "stress block factor, "
+    var_1    = "\\alpha_{1}"
+    str_eq   = "0.85 - 0.02 \\cdot ( \ f_{c} - 10 \ )"
+    numer_1  = f"0.85 - 0.02 \\cdot ( \ {f_c/1000} - 10 \ )"
+    string_l = alpha_1
+    html_str_b2 = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
+    header_1("5", "Stress Block Factor, $\\alpha_{1}$")
+    if f_c <= 10000:
+        display(html_str_a1)
+        display(html_str_a2)
+    if f_c > 10000:
+        display(html_str_b1)
+        display(html_str_b2)
+    clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
+    return()
+
+def eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na):
+    header_1("6", "Depth of Equivalent Stress Block")
+    z1 = str_fun_1("Effective cover, ", "d_{c}", cov_eff, 0, "in")
+    display(z1)
+    z1 = str_fun_1("Strain at the extreme concrete compression fiber, ", "\\varepsilon_{cu}", e_cu, 0, "")
+    display(z1)
+    clause_1("Clause 5.6.2.1 page : 5-36 to 5-37")
+    z1 = str_fun_2("Effective depth, ", "d_{s}", str(depth) + "-" + str(cov_eff ), 0, depth - cov_eff, "in")
+    display(z1)
+    str_eq  = "\\frac{A_{s} \ f_{s}}{ \\alpha_{1} \ f'_{c} \ \\beta_{1} \ b}"
+    numer_1 = f"\\frac{{{bar_area} \\cdot {f_y/1000}}}{{ {alpha_1} \\cdot {f_c/1000} \\cdot {beta_1} \\cdot {width}}}"
+    z1 = str_fun_3("Distance from extreme compression fiber to the neutral axis, ", "c", str_eq, 0, numer_1, round(d_comp/beta_1,2), "in")
+    display(z1)
+    clause_1("Clause 5.6.3.1.1-4 page : 5-39 to 5-40")
+    str_eq  = "c \\cdot \\beta_{1}"
+    numer_1 = f"{d_na:.2f} \\cdot {beta_1}"
+    z1 = str_fun_3("Depth of the equivalent stress block, ", "a", str_eq, 0, numer_1, round(d_comp,2), "in")
+    display(z1)
+    clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
+    return()
+
+def nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom):
+    header_1("7", "Nominal Flexural Resistance")
+    str_eq  = "A_{s} \\cdot f_{s} \\cdot \\left( d_{s} - \\frac{a}{2} \\right)"
+    numer_1 = f"{bar_dia} \\cdot {f_y/1000} \\cdot \\left( {eff_depth} - \\frac{{{round(d_comp,2)}}}{2} \\right)"
+    z1 = str_fun_3("Nominal flexural resistance, ", "M_{n}", str_eq, 0, numer_1, round(M_nom,2), "kips-in")
+    display(z1)
+    clause_1("Clause 5.6.3.2.2-1 page : 5-42 to 5-43")
+    return()
+
+def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
+    header_1("8", "Resistance Reduction Factor")
+    str_eq = "\\varepsilon_{cu} \\cdot \\frac{ \\left( d_{s} - c \\right)}{c}"
+    numer  = f"{eff_depth} - {round(d_na,2)}"
+    denom  = f"{round(d_na,2)}"
+    fract  = f"{e_cu} \\cdot \\left( {frac(numer, denom)} \\right)"
+    z1     = str_fun_3("Net tensile strain , ", "\\varepsilon_{t}", str_eq, 0, fract, round(net_tens_e,5), "")
+    display(z1)
+    clause_1("Clause 5.6.2.1 page : 5-36 to 5-37")
+    x        = np.array([60, 75, 80, 100]) #ksi
+    y        = np.array([0.002, 0.0028, 0.003, 0.004])
+    z        = np.array([0.005, 0.005, 0.0056, 0.008])
+# Create a linear interpolating function
+    f_linear_y = interp1d(x, y, kind='linear', bounds_error=False, fill_value=(y.min(), y.max()))
+    f_linear_z = interp1d(x, z, kind='linear', bounds_error=False, fill_value=(z.min(), z.max()))
+# Evaluate at new points
+    e_cl  = f_linear_y(f_y/1000)
+    e_tl  = f_linear_z(f_y/1000)
+    phi_1 = 0.75 + 0.15 * (net_tens_e - e_cl) / (e_tl - e_cl)
+
+    phi_2 = min(max(0.75, phi_1),0.9)
+
+    string_r = "compression-controlled strain limit, "
+    var_1    = "\\varepsilon_{cl}"
+    z1       = str_fun_1(string_r, var_1, e_cl, 0, "")
+    display(z1)
+    string_r = "tension-controlled strain limit, "
+    var_1    = "\\varepsilon_{tl}"
+    z1       = str_fun_1(string_r, var_1, e_tl, 0, "")
+    display(z1)
+    clause_1("Table C5.6.2.1-1 page : 5-38")
+
+    string_r = "Resistance reduction factor, "
+    var_1    = "\\phi"
+
+    numer    = "\\varepsilon_{t} - \\varepsilon_{cl}"
+    denom    = "\\varepsilon_{tl} - \\varepsilon_{cl}"
+    fract_1  = frac(numer, denom)
+    str_eq   = f"0.75 + 0.15 \\cdot {fract_1}"
+    
+    numer    = f"{round(net_tens_e,5)} - {np.round(e_cl,5)}"
+    denom    = f"{np.round(e_tl,5)} - {np.round(e_cl,5)}"
+    fract_1  = frac(numer, denom)
+    numer_1  = f"0.75 + 0.15 \\cdot {fract_1}"
+
+    string_l = phi_1
+
+    html_str = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
+    display(html_str)
+
+    html_str_c1 = range_2(round(phi_1,2), 0.75)
+    html_str_c2 = range_1(0.75, 0.9, round(phi_1,2))
+    html_str_c3 = range_2(0.9, round(phi_1,2))
+    if phi_1 < 0.75:
+        display(html_str_c1)
+    if phi_1 > 0.75 and phi_1 < 0.9:
+        display(html_str_c2)
+    if phi_1 > 0.9:
+        display(html_str_c3)
+
+    clause_1("Clause 5.5.4.2-2 page : 5-34")
+
+    string_r = "Resistance reduction factor, "
+    var_1    = "\\phi"
+    z2       = str_fun_1(string_r, var_1, round(phi_2,2), 0, "")
+    display(z2)
+    return()
+
+def fact_flex_resist(str_red_fact, M_nom):
+    header_1("9", "Factored Flexural Resistance")
+    M_r     = str_red_fact * M_nom
+    str_eq  = "\\phi \\cdot M_{n}"
+    numer_1 = f"{round(str_red_fact,2)} \\cdot {round(M_nom,2)}"
+    z1 = str_fun_3("Factored flexural resistance, ", "M_{r}", str_eq, 0, numer_1, round(M_r,2), "kips-in")
+    display(z1)
+    clause_1("Clause 5.6.3.2.1-1 page : 5-42")
+    line_1()
+    return()
+
+# Do operations on stored data
+e_cu         = 0.003                            # ultimate compressive strain in concrete
+eff_depth    = depth - cov_eff                  # (in)
+bar_area     = round((bar_nos * np.pi * bar_dia**2/4),2) # (in^2)
+beta_1       = beta_1_calc(f_c)
+alpha_1      = alpha_1_calc(f_c)
+d_comp       = bar_area * f_y / (alpha_1 * f_c * width) # (in) depth of equivalent rectangular stress block
+d_na         = d_comp/beta_1 # (in)
+d_na_ratio   = d_na/eff_depth 
+M_nom        = bar_area * f_y * (eff_depth - d_comp/2) * 0.001 # (kips-in)
+net_tens_e   = e_cu * (eff_depth - d_na)/d_na
+str_red_fact, e_cl, e_tl = str_red_fact_calc(net_tens_e, f_y)
+M_cap        = str_red_fact * M_nom # (kips-in)
+# display HTML
+str_fun_1("Beam width, ", "b", width, 0, "in")
+#beam_dim_1(width, depth)
+#rein_prop_1(bar_nos, bar_dia, bar_area)
+#mat_prop_1(f_y, f_c, beta_1)
+#stress_block_b1(f_c, beta_1)
+#stress_block_a1(alpha_1, f_c)
+#eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na)
+#nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom)
+#resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl)
+#fact_flex_resist(str_red_fact, M_nom)
