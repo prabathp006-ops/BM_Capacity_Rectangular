@@ -1,2 +1,2 @@
-# RC_Beam_designer_01
-Design of reinforced concrete rectangular beam
+# BM_Capacity_Rectangular
+Moment Capacity of Rectangular Singly Reinforced Concrete Section
