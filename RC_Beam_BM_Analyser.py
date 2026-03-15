@@ -334,10 +334,11 @@ M_cap        = str_red_fact * M_nom # (kips-in)
 #header_1("1", "Beam Dimensions")
 #str_fun_1("Beam width, ", "b", width, 0, "in")
 beam_dim_1(width, depth)
+line_1 = r"Area of rebars, A_{s} "
 fract   = frac("\\pi", 4)
 str_eq  = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
 numer_1 = f"{bar_nos} \cdot {fract} \cdot {bar_dia}^{2}"
-st.latex(fract)
+st.latex(line_1)
 #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
 #rein_prop_1(bar_nos, bar_dia, bar_area)
 #mat_prop_1(f_y, f_c, beta_1)
