@@ -337,7 +337,7 @@ beam_dim_1(width, depth)
 line_1   = r"Area of rebars, $A_{s}$ "
 fract    = frac("\\pi", 4)
 str_eq   = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
-numer_1  = f"{bar_nos} \cdot {fract} \cdot {bar_dia}^{2}"
+numer_1  = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{{2}}"
 string_r = "Area of rebars, "
 var_1    = "A_{s}"
 dim_unt  = "in^{2}"
