@@ -82,7 +82,6 @@ def str_fun_3(string_r, var_1, string_l, space_cm, numer_1, numer_2, dim_unt):
     &= {numer_2}\;\text{{{dim_unt}}}
     \end{{align}}
     """)
-    return ()
 
 
 def frac(numer, denom):
