@@ -341,7 +341,7 @@ M_cap        = str_red_fact * M_nom # (kips-in)
 beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
-
+var_1 = "s"
 st.latex(rf"""
 10 &\leq {var_1} &\leq 20
 """)
