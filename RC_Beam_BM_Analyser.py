@@ -351,12 +351,13 @@ st.latex(rf" = {numer_1}\;{dim_unt}")
 
 
 # Usage
-latex_equation(
-    title="Area of rebars,",
-    var="A_{s}",
-    formula=r"N_{bars} \cdot \frac{\pi}{4} \cdot d_{bar}^{2}",
-    substitution=rf"{bar_nos} \cdot {fract} \cdot {bar_dia}^{{2}}",
-    units=r"\text{in}^{2}"
+st.latex(
+    rf"""
+    \begin{{aligned}}
+    A_{{s}} &= {formula} \\
+    &= {numerator} \; \text{{in}}^{{2}}
+    \end{{aligned}}
+    """
 )
 #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
 #rein_prop_1(bar_nos, bar_dia, bar_area)
