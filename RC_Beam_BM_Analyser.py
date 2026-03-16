@@ -340,7 +340,7 @@ str_eq   = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
 numer_1  = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{{2}}"
 string_r = "Area of rebars, "
 var_1    = "A_{s}"
-dim_unt  = "in^{2}"
+dim_unt  = r"in^{2}"
 st.latex(rf"\text{{{string_r}}} {var_1} \hspace{{{0}cm}} = {str_eq}\;\text{{{""}}}")
 st.latex(rf" = {numer_1}\;\text{{{dim_unt}}}")
 #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
