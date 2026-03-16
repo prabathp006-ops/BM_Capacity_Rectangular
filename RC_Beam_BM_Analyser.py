@@ -158,11 +158,8 @@ def rein_prop_1(bar_nos, bar_dia, bar_area):
 
 def mat_prop_1(f_y, f_c, beta_1):
     header_1("3", "Material Properties")
-    z1 = str_fun_1("Stress in tension reinforcement at nominal flexural resistence, ", "f_{s}", f_y/1000, 0, "ksi")
-    display(z1)
-    z1 = str_fun_1("Compressive strength of concrete at 28 days, ", "f'_{c}", f_c/1000, 0, "ksi")
-    display(z1)
-    return()
+    str_fun_1("Stress in tension reinforcement at nominal flexural resistence, ", "f_{s}", f_y/1000, 0, "ksi")
+    str_fun_1("Compressive strength of concrete at 28 days, ", "f'_{c}", f_c/1000, 0, "ksi")
 
 def stress_block_b1(f_c, beta_1):
 
@@ -344,7 +341,7 @@ M_cap        = str_red_fact * M_nom # (kips-in)
 #str_fun_1("Beam width, ", "b", width, 0, "in")
 beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
-#mat_prop_1(f_y, f_c, beta_1)
+mat_prop_1(f_y, f_c, beta_1)
 #stress_block_b1(f_c, beta_1)
 #stress_block_a1(alpha_1, f_c)
 #eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na)
