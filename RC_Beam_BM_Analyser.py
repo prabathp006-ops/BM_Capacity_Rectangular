@@ -335,13 +335,7 @@ M_cap        = str_red_fact * M_nom # (kips-in)
 beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
-
-rhs_1 = 10
-lhs_1 = 20
-var_1 = "ss_{1}"
-range_1(rhs_1, lhs_1, var_1)
-
-#stress_block_b1(f_c, beta_1)
+stress_block_b1(f_c, beta_1)
 #stress_block_a1(alpha_1, f_c)
 #eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na)
 #nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom)
