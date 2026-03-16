@@ -343,9 +343,7 @@ rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
 
 st.latex(rf"""
-\begin{{align}}
 10 &\leq {var_1} &\leq 20
-\end{{align}}
 """)
 
 #stress_block_b1(f_c, beta_1)
