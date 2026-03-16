@@ -158,37 +158,36 @@ def rein_prop_1(bar_nos, bar_dia, bar_area):
 
 def mat_prop_1(f_y, f_c, beta_1):
     header_1("3", "Material Properties")
-    str_fun_1("Stress in tension reinforcement at nominal flexural resistence, ", "f_{s}", f_y/1000, 0, "ksi")
+    str_fun_1("Stress in tension reinforcement at nominal flexural resistance, ", "f_{s}", f_y/1000, 0, "ksi")
     str_fun_1("Compressive strength of concrete at 28 days, ", "f'_{c}", f_c/1000, 0, "ksi")
 
 def stress_block_b1(f_c, beta_1):
-
     header_1("4", "Stress Block Factor, $\\beta_{1}$")
-    html_str_a1 = range_1(2.5, 4.0, "f'_{c}")
-    string_r  = "stress block factor, "
-    var_1     = "\\beta_{1}"
-    string_l  = f"{beta_1}"
-    dim_unt   = ""
-    html_str_a2 = str_fun_1(string_r, var_1, string_l, 0, dim_unt)
-    html_str_b1 = range_1(4.0, 8.0, "f'_{c}")
-    string_r = "stress block factor, "
-    var_1    = "\\beta_{1}"
-    str_eq   = "0.85 - 0.05 \\cdot ( \ f_{c} - 4 \ )"
-    numer_1  = f"0.85 - 0.05 \\cdot ( \ {f_c/1000} - 4 \ )"
-    string_l = beta_1
-    html_str_b2 = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
-    html_str_c1 = range_2(8.0, "f'_{c}")
     if f_c >= 2500 and f_c <= 4000:
+        string_r  = "stress block factor, "
+        var_1     = "\\beta_{1}"
+        string_l  = f"{beta_1}"
+        dim_unt   = ""
+        html_str_a1 = range_1(2.5, 4.0, "f'_{c}")
         display(html_str_a1)
+        html_str_a2 = str_fun_1(string_r, var_1, string_l, 0, dim_unt)
         display(html_str_a2)
     if f_c > 4000 and f_c < 8000:
+        string_r = "stress block factor, "
+        var_1    = "\\beta_{1}"
+        str_eq   = "0.85 - 0.05 \\cdot ( \ f_{c} - 4 \ )"
+        numer_1  = f"0.85 - 0.05 \\cdot ( \ {f_c/1000} - 4 \ )"
+        string_l = beta_1
+        html_str_b1 = range_1(4.0, 8.0, "f'_{c}")
         display(html_str_b1)
+        html_str_b2 = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
         display(html_str_b2)
     if f_c >= 8000:
+        html_str_c1 = range_2(8.0, "f'_{c}")
         display(html_str_c1)
+        html_str_a2 = str_fun_1(string_r, var_1, string_l, 0, dim_unt)
         display(html_str_a2)
     clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
-    return()
 
 def stress_block_a1(alpha_1, f_c):
     html_str_a1 = range_2("f'_{c}", 10)
@@ -342,6 +341,12 @@ M_cap        = str_red_fact * M_nom # (kips-in)
 beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
+
+st.latex(rf"""
+    \begin{{align}}
+    {10} &\\leq \\hspace{{1cm}} {var_1} &\\leq {20}
+    \end{{align}}
+    """)
 #stress_block_b1(f_c, beta_1)
 #stress_block_a1(alpha_1, f_c)
 #eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na)
