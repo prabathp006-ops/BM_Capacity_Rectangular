@@ -24,32 +24,10 @@ f_c         = 4000
 cov_eff     = 2.5
         
 def latex_equation(title, var, formula, substitution=None, units=""):
-    """
-    Render aligned LaTeX equations with optional substitution.
-    
-    Args:
-        title: Equation title/description
-        var: Variable name (e.g., "A_{s}")
-        formula: Main formula
-        substitution: Optional substituted values
-        units: Units of measurement
-    """
+    """Generic helper for rendering engineering equations"""
+    st.latex(rf"\text{{{title}}} {var} = {formula}")
     if substitution:
-        st.latex(
-            rf"""
-            \begin{{align*}}
-            \text{{{title}}} {var} &= {formula} \\
-            &= {substitution} \; \text{{{units}}}
-            \end{{align*}}
-            """
-        )
-    else:
-        st.latex(rf"\text{{{title}}} {var} = {formula}")
-
-
-# Main app
-st.set_page_config(page_title="Engineering Calculations", layout="wide")
-st.title("Engineering Calculations")
+        st.latex(rf"= {substitution} \; {units}")
 
 
 #stress block factor beta_1 calculator
@@ -372,18 +350,13 @@ st.latex(rf"\text{{{string_r}}} {var_1} \hspace{{{0}cm}} = {str_eq}\;\text{{{""}
 st.latex(rf" = {numer_1}\;{dim_unt}")
 
 
-# Example 1: Rebar Area
-st.subheader("Rebar Area Calculation")
-bar_nos = 4
-bar_dia = 1.5
-fract = r"\frac{\pi}{4}"
-
+# Usage
 latex_equation(
     title="Area of rebars,",
     var="A_{s}",
     formula=r"N_{bars} \cdot \frac{\pi}{4} \cdot d_{bar}^{2}",
     substitution=rf"{bar_nos} \cdot {fract} \cdot {bar_dia}^{{2}}",
-    units="in^{2}"
+    units=r"\text{in}^{2}"
 )
 #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
 #rein_prop_1(bar_nos, bar_dia, bar_area)
