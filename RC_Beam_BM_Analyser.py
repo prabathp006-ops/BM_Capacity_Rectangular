@@ -23,12 +23,6 @@ f_y         = 60000
 f_c         = 4000
 cov_eff     = 2.5
 
-
-def eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt):
-        st.latex(rf"\text{{{rhs_1}}} {var_1} \hspace{{{0}cm}} = {lhs_1}\;\text{{{""}}}")
-        st.latex(rf" = {lhs_2}")
-        st.latex(rf" = {lhs_3}\;{dim_unt}")
-
 #stress block factor beta_1 calculator
 def beta_1_calc(f_c):
     if f_c >= 2500 and f_c <= 4000:
@@ -78,6 +72,11 @@ def str_fun_2(string_r, var_1, string_l, space_cm, numer_1, dim_unt):
     $$
     """
     return HTML(html_str)
+
+def eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt):
+        st.latex(rf"\text{{{rhs_1}}} {var_1} \hspace{{{0}cm}} = {lhs_1}\;\text{{{""}}}")
+        st.latex(rf" = {lhs_2}")
+        st.latex(rf" = {lhs_3}\;{dim_unt}")
 
 def str_fun_3(string_r, var_1, string_l, space_cm, numer_1, numer_2, dim_unt):
     st.latex(rf"""
@@ -147,9 +146,14 @@ def rein_prop_1(bar_nos, bar_dia, bar_area):
     str_fun_1("Number of rebars, ", "N_{bars}", bar_nos, 0, "No's")
     str_fun_1("Diameter of rebar, ", "d_{bar}", bar_dia, 0, "in")
     fract   = frac("\\pi", 4)
-    str_eq  = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
-    numer_1 = f"{bar_nos} \cdot {fract} \cdot {bar_dia}^{2}"
-    str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
+    lhs_1   = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
+    lhs_2   = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{{2}}"
+    lhs_3   = bar_area
+    rhs_1   = "Area of rebars, "
+    var_1   = "A_{s}"
+    dim_unt = r"{in^{2}}"
+    eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt)
+    #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
     return ()
 
 def mat_prop_1(f_y, f_c, beta_1):
@@ -339,19 +343,7 @@ M_cap        = str_red_fact * M_nom # (kips-in)
 #header_1("1", "Beam Dimensions")
 #str_fun_1("Beam width, ", "b", width, 0, "in")
 beam_dim_1(width, depth)
-
-fract   = frac("\\pi", 4)
-lhs_1   = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
-lhs_2   = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{{2}}"
-lhs_3   = bar_area
-rhs_1   = "Area of rebars, "
-var_1   = "A_{s}"
-dim_unt = r"{in^{2}}"
-
-eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt)
-
-#str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
-#rein_prop_1(bar_nos, bar_dia, bar_area)
+rein_prop_1(bar_nos, bar_dia, bar_area)
 #mat_prop_1(f_y, f_c, beta_1)
 #stress_block_b1(f_c, beta_1)
 #stress_block_a1(alpha_1, f_c)
