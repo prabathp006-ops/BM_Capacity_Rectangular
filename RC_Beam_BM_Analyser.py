@@ -47,6 +47,11 @@ def latex_equation(title, var, formula, substitution=None, units=""):
         st.latex(rf"\text{{{title}}} {var} = {formula}")
 
 
+# Main app
+st.set_page_config(page_title="Engineering Calculations", layout="wide")
+st.title("Engineering Calculations")
+
+
 #stress block factor beta_1 calculator
 def beta_1_calc(f_c):
     if f_c >= 2500 and f_c <= 4000:
@@ -367,7 +372,12 @@ st.latex(rf"\text{{{string_r}}} {var_1} \hspace{{{0}cm}} = {str_eq}\;\text{{{""}
 st.latex(rf" = {numer_1}\;{dim_unt}")
 
 
-# Usage examples:
+# Example 1: Rebar Area
+st.subheader("Rebar Area Calculation")
+bar_nos = 4
+bar_dia = 1.5
+fract = r"\frac{\pi}{4}"
+
 latex_equation(
     title="Area of rebars,",
     var="A_{s}",
