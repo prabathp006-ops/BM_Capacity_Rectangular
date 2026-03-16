@@ -22,13 +22,12 @@ bar_dia     = 1.125
 f_y         = 60000
 f_c         = 4000
 cov_eff     = 2.5
-        
-def latex_equation(title, var, formula, substitution=None, units=""):
-    """Generic helper for rendering engineering equations"""
-    st.latex(rf"\text{{{title}}} {var} = {formula}")
-    if substitution:
-        st.latex(rf"= {substitution} \; {units}")
 
+
+def eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt):
+        st.latex(rf"\text{{{rhs_1}}} {var_1} \hspace{{{0}cm}} = {lhs_1}\;\text{{{""}}}")
+        st.latex(rf" = {lhs_2}")
+        st.latex(rf" = {lhs_3}\;{dim_unt}")
 
 #stress block factor beta_1 calculator
 def beta_1_calc(f_c):
@@ -341,15 +340,15 @@ M_cap        = str_red_fact * M_nom # (kips-in)
 #str_fun_1("Beam width, ", "b", width, 0, "in")
 beam_dim_1(width, depth)
 
-fract    = frac("\\pi", 4)
-str_eq   = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
-numer_1  = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{{2}}"
-string_r = "Area of rebars, "
-var_1    = "A_{s}"
-dim_unt  = r"{in^{2}}"
-st.latex(rf"\text{{{string_r}}} {var_1} \hspace{{{0}cm}} = {str_eq}\;\text{{{""}}}")
-st.latex(rf" = {numer_1}")
-st.latex(rf" = {bar_area}\;{dim_unt}")
+fract   = frac("\\pi", 4)
+lhs_1   = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
+lhs_2   = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{{2}}"
+lhs_3   = bar_area
+rhs_1   = "Area of rebars, "
+var_1   = "A_{s}"
+dim_unt = r"{in^{2}}"
+
+eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt)
 
 #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
 #rein_prop_1(bar_nos, bar_dia, bar_area)
