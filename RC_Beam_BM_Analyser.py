@@ -349,7 +349,7 @@ var_1    = "A_{s}"
 dim_unt  = r"{in^{2}}"
 st.latex(rf"\text{{{string_r}}} {var_1} \hspace{{{0}cm}} = {str_eq}\;\text{{{""}}}")
 st.latex(rf" = {numer_1}")
-st.latex(rf" = {numer_1}\;{dim_unt}")
+st.latex(rf" = {bar_area}\;{dim_unt}")
 
 #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
 #rein_prop_1(bar_nos, bar_dia, bar_area)
