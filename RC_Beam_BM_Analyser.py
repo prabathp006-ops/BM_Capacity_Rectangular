@@ -345,7 +345,7 @@ var_1 = "s"
 #st.latex(rf"""10 &\leq {var_1} &\leq 20""")
 rhs_1 = 10
 lhs_1 = 20
-st.latex(rf"{rhs_1}  = \text{{"ss"}} = {lhs_1}")
+st.latex(rf"{rhs_1}  = \text{{{"ss"}}} = {lhs_1}")
 
 #stress_block_b1(f_c, beta_1)
 #stress_block_a1(alpha_1, f_c)
