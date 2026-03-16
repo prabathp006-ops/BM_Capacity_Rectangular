@@ -339,7 +339,7 @@ mat_prop_1(f_y, f_c, beta_1)
 rhs_1 = 10
 lhs_1 = 20
 var_1 = "ss_{1}"
-range_lat_1(rhs_1, lhs_1, var_1)
+range_1(rhs_1, lhs_1, var_1)
 
 #stress_block_b1(f_c, beta_1)
 #stress_block_a1(alpha_1, f_c)
