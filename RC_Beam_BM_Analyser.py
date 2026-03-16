@@ -101,18 +101,9 @@ def head_1(string_r, var_1):
     """
     return HTML(html_str)
 ####################################
-def range_lat_1(rhs_1, var_1, lhs_1):
+def range_1(rhs_1, lhs_1, var_1):
     st.latex(rf"{rhs_1}  \leq {var_1} \leq {lhs_1}")
 ####################################
-def range_1(l_val, u_val, var_1):
-    html_str1 = f"""
-    $$
-    \\begin{{align}}
-    {l_val} &\\leq \\hspace{{1cm}} {var_1} &\\leq {u_val} \\\\
-    \\end{{align}}
-    $$
-    """
-    return HTML(html_str1) 
 
 def range_2(l_val, var_1):
     html_str1 = f"""
@@ -348,7 +339,7 @@ mat_prop_1(f_y, f_c, beta_1)
 rhs_1 = 10
 lhs_1 = 20
 var_1 = "ss_{1}"
-range_lat_1(rhs_1, var_1, lhs_1)
+range_lat_1(rhs_1, lhs_1, var_1)
 
 #stress_block_b1(f_c, beta_1)
 #stress_block_a1(alpha_1, f_c)
