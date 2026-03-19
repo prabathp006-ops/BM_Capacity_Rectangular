@@ -275,11 +275,9 @@ def fact_flex_resist(str_red_fact, M_nom):
     M_r     = str_red_fact * M_nom
     str_eq  = "\\phi \\cdot M_{n}"
     numer_1 = f"{round(str_red_fact,2)} \\cdot {round(M_nom,2)}"
-    z1 = str_fun_3("Factored flexural resistance, ", "M_{r}", str_eq, 0, numer_1, round(M_r,2), "kips-in")
-    display(z1)
+    str_fun_3("Factored flexural resistance, ", "M_{r}", str_eq, numer_1, round(M_r,2), "kips-in")
     clause_1("[Clause 5.6.3.2.1-1 page : 5-42]")
     line_1()
-    return()
 
 # Do operations on stored data
 e_cu         = 0.003                            # ultimate compressive strain in concrete
@@ -303,6 +301,4 @@ stress_block_a1(alpha_1, f_c)
 eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na)
 nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom)
 resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl)
-
-
-#fact_flex_resist(str_red_fact, M_nom)
+fact_flex_resist(str_red_fact, M_nom)
