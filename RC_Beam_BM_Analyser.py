@@ -208,10 +208,9 @@ def nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom):
     header_1("7", "Nominal Flexural Resistance")
     str_eq  = "A_{s} \\cdot f_{s} \\cdot \\left( d_{s} - \\frac{a}{2} \\right)"
     numer_1 = f"{bar_dia} \\cdot {f_y/1000} \\cdot \\left( {eff_depth} - \\frac{{{round(d_comp,2)}}}{2} \\right)"
-    z1 = str_fun_3("Nominal flexural resistance, ", "M_{n}", str_eq, 0, numer_1, round(M_nom,2), "kips-in")
-    display(z1)
+    str_fun_3("Nominal flexural resistance, ", "M_{n}", str_eq, numer_1, round(M_nom,2), "kips-in")
     clause_1("[Clause 5.6.3.2.2-1 page : 5-42 to 5-43]")
-    return()
+
 
 def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
     header_1("8", "Resistance Reduction Factor")
