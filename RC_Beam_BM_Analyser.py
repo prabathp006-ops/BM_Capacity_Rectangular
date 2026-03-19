@@ -111,7 +111,7 @@ def clause_1(str_1):
     return display(HTML(f"<div style='text-align: right'>{str_1}</div>"))
 
 def clause_1_new(str_1):
-    st.markdown(f"$$\\hfill \\text{{{str_1}}}$$")
+    st.markdown(f"$$ \\hfill \\text{{{str_1}}}$$")
 
 def header_1(indx_1, str_1):
     st.markdown(f"**{indx_1}. {str_1}**")
