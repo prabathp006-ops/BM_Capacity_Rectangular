@@ -191,24 +191,18 @@ def stress_block_a1(alpha_1, f_c):
 
 def eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na):
     header_1("6", "Depth of Equivalent Stress Block")
-    z1 = str_fun_1("Effective cover, ", "d_{c}", cov_eff, "in")
-    display(z1)
-    z1 = str_fun_1("Strain at the extreme concrete compression fiber, ", "\\varepsilon_{cu}", e_cu, "")
-    display(z1)
+    str_fun_1("Effective cover, ", "d_{c}", cov_eff, "in")
+    str_fun_1("Strain at the extreme concrete compression fiber, ", "\\varepsilon_{cu}", e_cu, "")
     clause_1("Clause 5.6.2.1 page : 5-36 to 5-37")
-    z1 = str_fun_2("Effective depth, ", "d_{s}", str(depth) + "-" + str(cov_eff ), depth - cov_eff, "in")
-    display(z1)
+    str_fun_2("Effective depth, ", "d_{s}", str(depth) + "-" + str(cov_eff ), depth - cov_eff, "in")
     str_eq  = "\\frac{A_{s} \ f_{s}}{ \\alpha_{1} \ f'_{c} \ \\beta_{1} \ b}"
     numer_1 = f"\\frac{{{bar_area} \\cdot {f_y/1000}}}{{ {alpha_1} \\cdot {f_c/1000} \\cdot {beta_1} \\cdot {width}}}"
-    z1 = str_fun_3("Distance from extreme compression fiber to the neutral axis, ", "c", str_eq, 0, numer_1, round(d_comp/beta_1,2), "in")
-    display(z1)
+    str_fun_3("Distance from extreme compression fiber to the neutral axis, ", "c", str_eq, numer_1, round(d_comp/beta_1,2), "in")
     clause_1("Clause 5.6.3.1.1-4 page : 5-39 to 5-40")
     str_eq  = "c \\cdot \\beta_{1}"
     numer_1 = f"{d_na:.2f} \\cdot {beta_1}"
-    z1 = str_fun_3("Depth of the equivalent stress block, ", "a", str_eq, 0, numer_1, round(d_comp,2), "in")
-    display(z1)
+    str_fun_3("Depth of the equivalent stress block, ", "a", str_eq, numer_1, round(d_comp,2), "in")
     clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
-    return()
 
 def nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom):
     header_1("7", "Nominal Flexural Resistance")
@@ -314,9 +308,9 @@ rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
 stress_block_b1(f_c, beta_1)
 stress_block_a1(alpha_1, f_c)
+eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na)
 
 
-#eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na)
 #nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom)
 #resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl)
 #fact_flex_resist(str_red_fact, M_nom)
