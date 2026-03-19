@@ -20,7 +20,7 @@ depth       = 20
 bar_nos     = 4
 bar_dia     = 1.125
 f_y         = 60000
-f_c         = 9000
+f_c         = 4000
 cov_eff     = 2.5
 
 #stress block factor beta_1 calculator
