@@ -61,6 +61,9 @@ def str_red_fact_calc(net_tens_e, f_y):
 def str_fun_1(string_r, var_1, string_l, space_cm, dim_unt):
     st.latex(rf"\text{{{string_r}}} {var_1} \hspace{{{space_cm}cm}} = {string_l}\;\text{{{dim_unt}}}")
 
+def str_fun_1_new(string_r, var_1, string_l, dim_unt):
+    st.latex(rf"\text{{{string_r}}} {var_1} = {string_l}\;\text{{{dim_unt}}}")
+
 
 def str_fun_2(string_r, var_1, string_l, space_cm, numer_1, dim_unt):
     html_str = f"""
@@ -331,7 +334,7 @@ str_red_fact, e_cl, e_tl = str_red_fact_calc(net_tens_e, f_y)
 M_cap        = str_red_fact * M_nom # (kips-in)
 # display HTML
 #header_1("1", "Beam Dimensions")
-#str_fun_1("Beam width, ", "b", width, 0, "in")
+str_fun_1_new("Beam width, ", "b", width, 0, "in")
 beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
