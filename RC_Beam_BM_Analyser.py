@@ -125,7 +125,6 @@ def beam_dim_1(width, depth):
     header_1("1", "Beam Dimensions")
     str_fun_1("Beam width, ", "b", width, "in")
     str_fun_1("Beam depth, ", "d", depth, "in")
-    return ()
 
 def rein_prop_1(bar_nos, bar_dia, bar_area):
     header_1("2", "Reinforcement Properties")
@@ -139,7 +138,6 @@ def rein_prop_1(bar_nos, bar_dia, bar_area):
     var_1   = "A_{s}"
     dim_unt = r"{in^{2}}"
     eq_3(lhs_1, var_1, rhs_1, rhs_2, rhs_3, dim_unt)
-    return ()
 
 def mat_prop_1(f_y, f_c, beta_1):
     header_1("3", "Material Properties")
@@ -165,6 +163,10 @@ def stress_block_b1(f_c, beta_1):
         str_fun_3(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
     if f_c >= 8000:
         range_2(8.0, "f'_{c}")
+        string_r  = "stress block factor, "
+        var_1     = "\\beta_{1}"
+        string_l  = f"{beta_1}"
+        dim_unt   = ""        
         str_fun_1(string_r, var_1, string_l, dim_unt)
     clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
 
