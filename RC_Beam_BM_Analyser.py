@@ -331,11 +331,23 @@ str_red_fact, e_cl, e_tl = str_red_fact_calc(net_tens_e, f_y)
 M_cap        = str_red_fact * M_nom # (kips-in)
 # display HTML
 #header_1("1", "Beam Dimensions")
-str_fun_1("Beam width, ", "b", width, "in")
-beam_dim_1(width, depth)
-rein_prop_1(bar_nos, bar_dia, bar_area)
-mat_prop_1(f_y, f_c, beta_1)
-stress_block_b1(f_c, beta_1)
+string_r = "stress block factor, "
+var_1    = "\\beta_{1}"
+str_eq   = "0.85 - 0.05 \\cdot ( \ f_{c} - 4 \ )"
+numer_1  = f"0.85 - 0.05 \\cdot ( \ {f_c/1000} - 4 \ )"
+string_l = beta_1
+html_str_b1 = range_1(4.0, 8.0, "f'_{c}")
+display(html_str_b1)
+html_str_b2 = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
+display(html_str_b2)
+
+
+#beam_dim_1(width, depth)
+#rein_prop_1(bar_nos, bar_dia, bar_area)
+#mat_prop_1(f_y, f_c, beta_1)
+#stress_block_b1(f_c, beta_1)
+
+
 #stress_block_a1(alpha_1, f_c)
 #eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na)
 #nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom)
