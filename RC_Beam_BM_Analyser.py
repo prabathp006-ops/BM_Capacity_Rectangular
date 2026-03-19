@@ -162,41 +162,35 @@ def stress_block_b1(f_c, beta_1):
         var_1     = "\\beta_{1}"
         string_l  = f"{beta_1}"
         dim_unt   = ""
-        html_str_a1 = range_1(2.5, 4.0, "f'_{c}")
-        display(html_str_a1)
-        html_str_a2 = str_fun_1(string_r, var_1, string_l, dim_unt)
-        display(html_str_a2)
+        range_1(2.5, 4.0, "f'_{c}")
+        str_fun_1(string_r, var_1, string_l, dim_unt)
     if f_c > 4000 and f_c < 8000:
         string_r = "stress block factor, "
         var_1    = "\\beta_{1}"
         str_eq   = "0.85 - 0.05 \\cdot ( \ f_{c} - 4 \ )"
         numer_1  = f"0.85 - 0.05 \\cdot ( \ {f_c/1000} - 4 \ )"
         string_l = beta_1
-        html_str_b1 = range_1(4.0, 8.0, "f'_{c}")
-        display(html_str_b1)
-        html_str_b2 = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
-        display(html_str_b2)
+        range_1(4.0, 8.0, "f'_{c}")
+        str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
     if f_c >= 8000:
-        html_str_c1 = range_2(8.0, "f'_{c}")
-        display(html_str_c1)
-        html_str_a2 = str_fun_1(string_r, var_1, string_l, dim_unt)
-        display(html_str_a2)
+        range_2(8.0, "f'_{c}")
+        str_fun_1(string_r, var_1, string_l, dim_unt)
     clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
 
 def stress_block_a1(alpha_1, f_c):
-    html_str_a1 = range_2("f'_{c}", 10)
+    range_2("f'_{c}", 10)
     string_r  = "stress block factor, "
     var_1     = "\\alpha_{1}"
     string_l  = f"{alpha_1}"
     dim_unt   = ""
-    html_str_a2 = str_fun_1(string_r, var_1, string_l, dim_unt)
-    html_str_b1 = range_2(10.0, "f'_{c}")
+    str_fun_1(string_r, var_1, string_l, dim_unt)
+    range_2(10.0, "f'_{c}")
     string_r = "stress block factor, "
     var_1    = "\\alpha_{1}"
     str_eq   = "0.85 - 0.02 \\cdot ( \ f_{c} - 10 \ )"
     numer_1  = f"0.85 - 0.02 \\cdot ( \ {f_c/1000} - 10 \ )"
     string_l = alpha_1
-    html_str_b2 = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
+    tr_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
     header_1("5", "Stress Block Factor, $\\alpha_{1}$")
     if f_c <= 10000:
         display(html_str_a1)
