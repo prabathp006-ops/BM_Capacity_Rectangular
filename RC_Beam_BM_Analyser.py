@@ -218,8 +218,7 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
     numer  = f"{eff_depth} - {round(d_na,2)}"
     denom  = f"{round(d_na,2)}"
     fract  = f"{e_cu} \\cdot \\left( {frac(numer, denom)} \\right)"
-    z1     = str_fun_3("Net tensile strain , ", "\\varepsilon_{t}", str_eq, 0, fract, round(net_tens_e,5), "")
-    display(z1)
+    str_fun_3("Net tensile strain , ", "\\varepsilon_{t}", str_eq, fract, round(net_tens_e,5), "")
     clause_1("[Clause 5.6.2.1 page : 5-36 to 5-37]")
     x        = np.array([60, 75, 80, 100]) #ksi
     y        = np.array([0.002, 0.0028, 0.003, 0.004])
@@ -236,12 +235,10 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
 
     string_r = "compression-controlled strain limit, "
     var_1    = "\\varepsilon_{cl}"
-    z1       = str_fun_1(string_r, var_1, e_cl, "")
-    display(z1)
+    str_fun_1(string_r, var_1, e_cl, "")
     string_r = "tension-controlled strain limit, "
     var_1    = "\\varepsilon_{tl}"
-    z1       = str_fun_1(string_r, var_1, e_tl, "")
-    display(z1)
+    str_fun_1(string_r, var_1, e_tl, "")
     clause_1("[Table C5.6.2.1-1 page : 5-38]")
 
     string_r = "Resistance reduction factor, "
@@ -259,8 +256,7 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
 
     string_l = phi_1
 
-    html_str = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
-    display(html_str)
+    str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
 
     if phi_1 < 0.75:
         range_2(round(phi_1,2), 0.75)
@@ -273,9 +269,7 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
 
     string_r = "Resistance reduction factor, "
     var_1    = "\\phi"
-    z2       = str_fun_1(string_r, var_1, round(phi_2,2), "")
-    display(z2)
-    return()
+    str_fun_1(string_r, var_1, round(phi_2,2), "")
 
 def fact_flex_resist(str_red_fact, M_nom):
     header_1("9", "Factored Flexural Resistance")
