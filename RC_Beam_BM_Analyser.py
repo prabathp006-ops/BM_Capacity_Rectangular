@@ -58,18 +58,15 @@ def str_red_fact_calc(net_tens_e, f_y):
 
     return phi_2, e_cl, e_tl
     
-def str_fun_1(string_r, var_1, string_l, space_cm, dim_unt):
-    st.latex(rf"\text{{{string_r}}} {var_1} \hspace{{{space_cm}cm}} = {string_l}\;\text{{{dim_unt}}}")
-
-def str_fun_1_new(string_r, var_1, string_l, dim_unt):
+def str_fun_1(string_r, var_1, string_l, dim_unt):
     st.latex(rf"\text{{{string_r}}} {var_1} = {string_l}\;\text{{{dim_unt}}}")
 
 
-def str_fun_2(string_r, var_1, string_l, space_cm, numer_1, dim_unt):
+def str_fun_2(string_r, var_1, string_l, numer_1, dim_unt):
     html_str = f"""
     $$
     \\begin{{align}}
-    \\text{{{string_r}}} {var_1} \\hspace{{{space_cm}cm}} &= {string_l} \ { dim_unt} \\\\
+    \\text{{{string_r}}} {var_1} &= {string_l} \ { dim_unt} \\\\
     \\ &= {numer_1} \ {dim_unt} 
     \\end{{align}}
     $$
@@ -134,14 +131,14 @@ def line_1():
 
 def beam_dim_1(width, depth):
     header_1("1", "Beam Dimensions")
-    str_fun_1("Beam width, ", "b", width, 0, "in")
-    str_fun_1("Beam depth, ", "d", depth, 0, "in")
+    str_fun_1("Beam width, ", "b", width, "in")
+    str_fun_1("Beam depth, ", "d", depth, "in")
     return ()
 
 def rein_prop_1(bar_nos, bar_dia, bar_area):
     header_1("2", "Reinforcement Properties")
-    str_fun_1("Number of rebars, ", "N_{bars}", bar_nos, 0, "No's")
-    str_fun_1("Diameter of rebar, ", "d_{bar}", bar_dia, 0, "in")
+    str_fun_1("Number of rebars, ", "N_{bars}", bar_nos, "No's")
+    str_fun_1("Diameter of rebar, ", "d_{bar}", bar_dia, "in")
     fract   = frac("\\pi", 4)
     lhs_1   = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
     lhs_2   = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{{2}}"
@@ -155,8 +152,8 @@ def rein_prop_1(bar_nos, bar_dia, bar_area):
 
 def mat_prop_1(f_y, f_c, beta_1):
     header_1("3", "Material Properties")
-    str_fun_1("Stress in tension reinforcement at nominal flexural resistance, ", "f_{s}", f_y/1000, 0, "ksi")
-    str_fun_1("Compressive strength of concrete at 28 days, ", "f'_{c}", f_c/1000, 0, "ksi")
+    str_fun_1("Stress in tension reinforcement at nominal flexural resistance, ", "f_{s}", f_y/1000, "ksi")
+    str_fun_1("Compressive strength of concrete at 28 days, ", "f'_{c}", f_c/1000, "ksi")
 
 def stress_block_b1(f_c, beta_1):
     header_1("4", "Stress Block Factor, $\\beta_{1}$")
@@ -167,7 +164,7 @@ def stress_block_b1(f_c, beta_1):
         dim_unt   = ""
         html_str_a1 = range_1(2.5, 4.0, "f'_{c}")
         display(html_str_a1)
-        html_str_a2 = str_fun_1(string_r, var_1, string_l, 0, dim_unt)
+        html_str_a2 = str_fun_1(string_r, var_1, string_l, dim_unt)
         display(html_str_a2)
     if f_c > 4000 and f_c < 8000:
         string_r = "stress block factor, "
@@ -182,7 +179,7 @@ def stress_block_b1(f_c, beta_1):
     if f_c >= 8000:
         html_str_c1 = range_2(8.0, "f'_{c}")
         display(html_str_c1)
-        html_str_a2 = str_fun_1(string_r, var_1, string_l, 0, dim_unt)
+        html_str_a2 = str_fun_1(string_r, var_1, string_l, dim_unt)
         display(html_str_a2)
     clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
 
@@ -192,7 +189,7 @@ def stress_block_a1(alpha_1, f_c):
     var_1     = "\\alpha_{1}"
     string_l  = f"{alpha_1}"
     dim_unt   = ""
-    html_str_a2 = str_fun_1(string_r, var_1, string_l, 0, dim_unt)
+    html_str_a2 = str_fun_1(string_r, var_1, string_l, dim_unt)
     html_str_b1 = range_2(10.0, "f'_{c}")
     string_r = "stress block factor, "
     var_1    = "\\alpha_{1}"
@@ -212,12 +209,12 @@ def stress_block_a1(alpha_1, f_c):
 
 def eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na):
     header_1("6", "Depth of Equivalent Stress Block")
-    z1 = str_fun_1("Effective cover, ", "d_{c}", cov_eff, 0, "in")
+    z1 = str_fun_1("Effective cover, ", "d_{c}", cov_eff, "in")
     display(z1)
-    z1 = str_fun_1("Strain at the extreme concrete compression fiber, ", "\\varepsilon_{cu}", e_cu, 0, "")
+    z1 = str_fun_1("Strain at the extreme concrete compression fiber, ", "\\varepsilon_{cu}", e_cu, "")
     display(z1)
     clause_1("Clause 5.6.2.1 page : 5-36 to 5-37")
-    z1 = str_fun_2("Effective depth, ", "d_{s}", str(depth) + "-" + str(cov_eff ), 0, depth - cov_eff, "in")
+    z1 = str_fun_2("Effective depth, ", "d_{s}", str(depth) + "-" + str(cov_eff ), depth - cov_eff, "in")
     display(z1)
     str_eq  = "\\frac{A_{s} \ f_{s}}{ \\alpha_{1} \ f'_{c} \ \\beta_{1} \ b}"
     numer_1 = f"\\frac{{{bar_area} \\cdot {f_y/1000}}}{{ {alpha_1} \\cdot {f_c/1000} \\cdot {beta_1} \\cdot {width}}}"
@@ -264,11 +261,11 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
 
     string_r = "compression-controlled strain limit, "
     var_1    = "\\varepsilon_{cl}"
-    z1       = str_fun_1(string_r, var_1, e_cl, 0, "")
+    z1       = str_fun_1(string_r, var_1, e_cl, "")
     display(z1)
     string_r = "tension-controlled strain limit, "
     var_1    = "\\varepsilon_{tl}"
-    z1       = str_fun_1(string_r, var_1, e_tl, 0, "")
+    z1       = str_fun_1(string_r, var_1, e_tl, "")
     display(z1)
     clause_1("Table C5.6.2.1-1 page : 5-38")
 
@@ -304,7 +301,7 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
 
     string_r = "Resistance reduction factor, "
     var_1    = "\\phi"
-    z2       = str_fun_1(string_r, var_1, round(phi_2,2), 0, "")
+    z2       = str_fun_1(string_r, var_1, round(phi_2,2), "")
     display(z2)
     return()
 
@@ -334,7 +331,7 @@ str_red_fact, e_cl, e_tl = str_red_fact_calc(net_tens_e, f_y)
 M_cap        = str_red_fact * M_nom # (kips-in)
 # display HTML
 #header_1("1", "Beam Dimensions")
-str_fun_1_new("Beam width, ", "b", width, "in")
+str_fun_1("Beam width, ", "b", width, "in")
 beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
