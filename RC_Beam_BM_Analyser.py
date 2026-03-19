@@ -78,16 +78,7 @@ def eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt):
         st.latex(rf" = {lhs_2}")
         st.latex(rf" = {lhs_3}\;{dim_unt}")
 
-def str_fun_3(string_r, var_1, string_l, space_cm, numer_1, numer_2, dim_unt):
-    st.latex(rf"""
-    \begin{{align}}
-    \text{{{string_r}}} {var_1} \hspace{{{space_cm}cm}} &= {string_l} \\
-    &= {numer_1} \\
-    &= {numer_2}\;\text{{{dim_unt}}}
-    \end{{align}}
-    """)
-
-def str_fun_3_new(string_r, var_1, string_l, numer_1, numer_2, dim_unt):
+def str_fun_3(string_r, var_1, string_l, numer_1, numer_2, dim_unt):
     st.latex(rf"""
     \begin{{align*}}
     \text{{{string_r}}} {var_1} &= {string_l} \\
@@ -155,7 +146,8 @@ def rein_prop_1(bar_nos, bar_dia, bar_area):
     rhs_1   = "Area of rebars, "
     var_1   = "A_{s}"
     dim_unt = r"{in^{2}}"
-    eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt)
+    #eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt)
+    str_fun_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt)
     #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
     return ()
 
@@ -340,15 +332,6 @@ str_red_fact, e_cl, e_tl = str_red_fact_calc(net_tens_e, f_y)
 M_cap        = str_red_fact * M_nom # (kips-in)
 # display HTML
 #header_1("1", "Beam Dimensions")
-string_r = "stress block factor, "
-var_1    = "\\beta_{1}"
-str_eq   = "0.85 - 0.05 \\cdot ( \ f_{c} - 4 \ )"
-numer_1  = f"0.85 - 0.05 \\cdot ( \ {f_c/1000} - 4 \ )"
-string_l = beta_1
-str_fun_3_new(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
-#display(html_str_b2)
-
-
 #beam_dim_1(width, depth)
 #rein_prop_1(bar_nos, bar_dia, bar_area)
 #mat_prop_1(f_y, f_c, beta_1)
