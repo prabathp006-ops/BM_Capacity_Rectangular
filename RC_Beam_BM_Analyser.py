@@ -168,7 +168,7 @@ def stress_block_b1(f_c, beta_1):
         string_l  = f"{beta_1}"
         dim_unt   = ""        
         str_fun_1(string_r, var_1, string_l, dim_unt)
-    clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
+    clause_1("[Clause 5.6.2.2 page : 5-38 to 5-39]")
 
 def stress_block_a1(alpha_1, f_c):
     header_1("5", "Stress Block Factor, $\\alpha_{1}$")
@@ -187,22 +187,22 @@ def stress_block_a1(alpha_1, f_c):
         numer_1  = f"0.85 - 0.02 \\cdot ( \ {f_c/1000} - 10 \ )"
         string_l = alpha_1
         str_fun_3(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
-    clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
+    clause_1("[Clause 5.6.2.2 page : 5-38 to 5-39]")
 
 def eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na):
     header_1("6", "Depth of Equivalent Stress Block")
     str_fun_1("Effective cover, ", "d_{c}", cov_eff, "in")
     str_fun_1("Strain at the extreme concrete compression fiber, ", "\\varepsilon_{cu}", e_cu, "")
-    clause_1("Clause 5.6.2.1 page : 5-36 to 5-37")
+    clause_1("[Clause 5.6.2.1 page : 5-36 to 5-37]")
     str_fun_2("Effective depth, ", "d_{s}", str(depth) + "-" + str(cov_eff ), depth - cov_eff, "in")
     str_eq  = "\\frac{A_{s} \ f_{s}}{ \\alpha_{1} \ f'_{c} \ \\beta_{1} \ b}"
     numer_1 = f"\\frac{{{bar_area} \\cdot {f_y/1000}}}{{ {alpha_1} \\cdot {f_c/1000} \\cdot {beta_1} \\cdot {width}}}"
     str_fun_3("Distance from extreme compression fiber to the neutral axis, ", "c", str_eq, numer_1, round(d_comp/beta_1,2), "in")
-    clause_1("Clause 5.6.3.1.1-4 page : 5-39 to 5-40")
+    clause_1("[Clause 5.6.3.1.1-4 page : 5-39 to 5-40]")
     str_eq  = "c \\cdot \\beta_{1}"
     numer_1 = f"{d_na:.2f} \\cdot {beta_1}"
     str_fun_3("Depth of the equivalent stress block, ", "a", str_eq, numer_1, round(d_comp,2), "in")
-    clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
+    clause_1("[Clause 5.6.2.2 page : 5-38 to 5-39]")
 
 def nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom):
     header_1("7", "Nominal Flexural Resistance")
@@ -210,7 +210,7 @@ def nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom):
     numer_1 = f"{bar_dia} \\cdot {f_y/1000} \\cdot \\left( {eff_depth} - \\frac{{{round(d_comp,2)}}}{2} \\right)"
     z1 = str_fun_3("Nominal flexural resistance, ", "M_{n}", str_eq, 0, numer_1, round(M_nom,2), "kips-in")
     display(z1)
-    clause_1("Clause 5.6.3.2.2-1 page : 5-42 to 5-43")
+    clause_1("[Clause 5.6.3.2.2-1 page : 5-42 to 5-43]")
     return()
 
 def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
@@ -221,7 +221,7 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
     fract  = f"{e_cu} \\cdot \\left( {frac(numer, denom)} \\right)"
     z1     = str_fun_3("Net tensile strain , ", "\\varepsilon_{t}", str_eq, 0, fract, round(net_tens_e,5), "")
     display(z1)
-    clause_1("Clause 5.6.2.1 page : 5-36 to 5-37")
+    clause_1("[Clause 5.6.2.1 page : 5-36 to 5-37]")
     x        = np.array([60, 75, 80, 100]) #ksi
     y        = np.array([0.002, 0.0028, 0.003, 0.004])
     z        = np.array([0.005, 0.005, 0.0056, 0.008])
@@ -243,7 +243,7 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
     var_1    = "\\varepsilon_{tl}"
     z1       = str_fun_1(string_r, var_1, e_tl, "")
     display(z1)
-    clause_1("Table C5.6.2.1-1 page : 5-38")
+    clause_1("[Table C5.6.2.1-1 page : 5-38]")
 
     string_r = "Resistance reduction factor, "
     var_1    = "\\phi"
@@ -270,7 +270,7 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
     if phi_1 > 0.9:
         range_2(0.9, round(phi_1,2))
 
-    clause_1("Clause 5.5.4.2-2 page : 5-34")
+    clause_1("[Clause 5.5.4.2-2 page : 5-34]")
 
     string_r = "Resistance reduction factor, "
     var_1    = "\\phi"
@@ -285,7 +285,7 @@ def fact_flex_resist(str_red_fact, M_nom):
     numer_1 = f"{round(str_red_fact,2)} \\cdot {round(M_nom,2)}"
     z1 = str_fun_3("Factored flexural resistance, ", "M_{r}", str_eq, 0, numer_1, round(M_r,2), "kips-in")
     display(z1)
-    clause_1("Clause 5.6.3.2.1-1 page : 5-42")
+    clause_1("[Clause 5.6.3.2.1-1 page : 5-42]")
     line_1()
     return()
 
