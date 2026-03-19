@@ -110,6 +110,15 @@ def range_2(lhs_1, var_1):
 def clause_1(str_1):
     return display(HTML(f"<div style='text-align: right'>{str_1}</div>"))
 
+def clause_1_new(str_1):
+    st.latex(rf"""
+    \[
+    \begin{{aligned}}
+    \hfill \text{{{str_1}}}
+    \end{{aligned}}
+    \]
+    """)
+
 def header_1(indx_1, str_1):
     st.markdown(f"**{indx_1}. {str_1}**")
     st.markdown("---")
@@ -168,7 +177,7 @@ def stress_block_b1(f_c, beta_1):
         string_l  = f"{beta_1}"
         dim_unt   = ""        
         str_fun_1(string_r, var_1, string_l, dim_unt)
-    clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
+    clause_1_new("Clause 5.6.2.2 page : 5-38 to 5-39")
 
 def stress_block_a1(alpha_1, f_c):
     header_1("5", "Stress Block Factor, $\\alpha_{1}$")
