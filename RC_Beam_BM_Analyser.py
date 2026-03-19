@@ -347,7 +347,7 @@ numer_1  = f"0.85 - 0.05 \\cdot ( \ {f_c/1000} - 4 \ )"
 string_l = beta_1
 html_str_b1 = range_1(4.0, 8.0, "f'_{c}")
 display(html_str_b1)
-html_str_b2 = str_fun_3(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
+html_str_b2 = str_fun_3_new(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
 display(html_str_b2)
 
 
