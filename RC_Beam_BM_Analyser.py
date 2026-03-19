@@ -87,6 +87,15 @@ def str_fun_3(string_r, var_1, string_l, space_cm, numer_1, numer_2, dim_unt):
     \end{{align}}
     """)
 
+def str_fun_3_new(string_r, var_1, string_l, numer_1, numer_2, dim_unt):
+    st.latex(rf"
+    \begin{{align}}
+    \text{{{string_r}}} {var_1} &= {string_l} \\
+    &= {numer_1} \\
+    &= {numer_2}\;\text{{{dim_unt}}}
+    \end{{align}}
+    ")
+
 
 def frac(numer, denom):
     return f"\\frac{{{numer}}}{{{denom}}}"
@@ -338,7 +347,7 @@ numer_1  = f"0.85 - 0.05 \\cdot ( \ {f_c/1000} - 4 \ )"
 string_l = beta_1
 html_str_b1 = range_1(4.0, 8.0, "f'_{c}")
 display(html_str_b1)
-html_str_b2 = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
+html_str_b2 = str_fun_3(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
 display(html_str_b2)
 
 
