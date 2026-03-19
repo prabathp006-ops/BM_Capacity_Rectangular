@@ -147,7 +147,6 @@ def rein_prop_1(bar_nos, bar_dia, bar_area):
     var_1   = "A_{s}"
     dim_unt = r"{in^{2}}"
     eq_3(lhs_1, var_1, rhs_1, rhs_2, rhs_3, dim_unt)
-    #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
     return ()
 
 def mat_prop_1(f_y, f_c, beta_1):
@@ -171,7 +170,7 @@ def stress_block_b1(f_c, beta_1):
         numer_1  = f"0.85 - 0.05 \\cdot ( \ {f_c/1000} - 4 \ )"
         string_l = beta_1
         range_1(4.0, 8.0, "f'_{c}")
-        str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
+        str_fun_3(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
     if f_c >= 8000:
         range_2(8.0, "f'_{c}")
         str_fun_1(string_r, var_1, string_l, dim_unt)
@@ -190,7 +189,7 @@ def stress_block_a1(alpha_1, f_c):
     str_eq   = "0.85 - 0.02 \\cdot ( \ f_{c} - 10 \ )"
     numer_1  = f"0.85 - 0.02 \\cdot ( \ {f_c/1000} - 10 \ )"
     string_l = alpha_1
-    tr_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
+    str_fun_3(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
     header_1("5", "Stress Block Factor, $\\alpha_{1}$")
     if f_c <= 10000:
         display(html_str_a1)
