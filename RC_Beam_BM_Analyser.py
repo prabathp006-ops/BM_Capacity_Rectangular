@@ -243,7 +243,6 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
 
     string_r = "Resistance reduction factor, "
     var_1    = "\\phi"
-
     numer    = "\\varepsilon_{t} - \\varepsilon_{cl}"
     denom    = "\\varepsilon_{tl} - \\varepsilon_{cl}"
     fract_1  = frac(numer, denom)
@@ -256,7 +255,7 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
 
     string_l = phi_1
 
-    str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
+    str_fun_3(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
 
     if phi_1 < 0.75:
         range_2(round(phi_1,2), 0.75)
