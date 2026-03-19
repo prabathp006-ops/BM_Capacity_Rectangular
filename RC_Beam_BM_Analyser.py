@@ -100,20 +100,12 @@ def head_1(string_r, var_1):
     $$
     """
     return HTML(html_str)
-####################################
+    
 def range_1(rhs_1, lhs_1, var_1):
     st.latex(rf"{rhs_1}  \leq {var_1} \leq {lhs_1}")
-####################################
 
-def range_2(l_val, var_1):
-    html_str1 = f"""
-    $$
-    \\begin{{align}}
-    {l_val} &\\leq \\hspace{{1cm}} {var_1} \\\\
-    \\end{{align}}
-    $$
-    """
-    return HTML(html_str1) 
+def range_2(lhs_1, var_1):
+    st.latex(rf"{lhs_1}  \leq {var_1}")
 
 def clause_1(str_1):
     return display(HTML(f"<div style='text-align: right'>{str_1}</div>"))
@@ -280,15 +272,12 @@ def resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl):
     html_str = str_fun_3(string_r, var_1, str_eq, 0, numer_1, round(string_l,2), "")
     display(html_str)
 
-    html_str_c1 = range_2(round(phi_1,2), 0.75)
-    html_str_c2 = range_1(0.75, 0.9, round(phi_1,2))
-    html_str_c3 = range_2(0.9, round(phi_1,2))
     if phi_1 < 0.75:
-        display(html_str_c1)
+        range_2(round(phi_1,2), 0.75)
     if phi_1 > 0.75 and phi_1 < 0.9:
-        display(html_str_c2)
+        range_1(0.75, 0.9, round(phi_1,2))
     if phi_1 > 0.9:
-        display(html_str_c3)
+        range_2(0.9, round(phi_1,2))
 
     clause_1("Clause 5.5.4.2-2 page : 5-34")
 
