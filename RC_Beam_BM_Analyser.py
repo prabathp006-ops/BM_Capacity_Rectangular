@@ -108,7 +108,7 @@ def range_2(lhs_1, var_1):
     st.latex(rf"{lhs_1}  \leq {var_1}")
 
 def clause_1(str_1):
-    st.latex(rf"\hspace{{2.5cm}}\text{{{str_1}}}")
+    st.latex(rf"\hspace{{1cm}}\text{{{str_1}}}")
 
 def header_1(indx_1, str_1):
     st.markdown(f"**{indx_1}. {str_1}**")
