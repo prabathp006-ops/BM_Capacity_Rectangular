@@ -89,11 +89,11 @@ def str_fun_3(string_r, var_1, string_l, space_cm, numer_1, numer_2, dim_unt):
 
 def str_fun_3_new(string_r, var_1, string_l, numer_1, numer_2, dim_unt):
     st.latex(rf"""
-    \begin{{align}}
+    \begin{{align*}}
     \text{{{string_r}}} {var_1} &= {string_l} \\
     &= {numer_1} \\
     &= {numer_2}\;\text{{{dim_unt}}}
-    \end{{align}}
+    \end{{align*}}
     """)
 
 
