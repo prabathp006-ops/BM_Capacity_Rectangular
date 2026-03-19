@@ -73,10 +73,10 @@ def str_fun_2(string_r, var_1, string_l, numer_1, dim_unt):
     """
     return HTML(html_str)
 
-def eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt):
-        st.latex(rf"\text{{{rhs_1}}} {var_1} \hspace{{{0}cm}} = {lhs_1}\;\text{{{""}}}")
-        st.latex(rf" = {lhs_2}")
-        st.latex(rf" = {lhs_3}\;{dim_unt}")
+def eq_3(lhs_1, var_1, rhs_1, rhs_2, rhs_3, dim_unt):
+        st.latex(rf"\text{{{lhs_1}}} {var_1} = {rhs_1}\;\text{{{""}}}")
+        st.latex(rf" = {rhs_2}")
+        st.latex(rf" = {rhs_3}\;{dim_unt}")
 
 def str_fun_3(string_r, var_1, string_l, numer_1, numer_2, dim_unt):
     st.latex(rf"""
@@ -140,14 +140,13 @@ def rein_prop_1(bar_nos, bar_dia, bar_area):
     str_fun_1("Number of rebars, ", "N_{bars}", bar_nos, "No's")
     str_fun_1("Diameter of rebar, ", "d_{bar}", bar_dia, "in")
     fract   = frac("\\pi", 4)
-    lhs_1   = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
-    lhs_2   = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{{2}}"
-    lhs_3   = bar_area
-    rhs_1   = "Area of rebars, "
+    rhs_1   = r"{N_{bars}} \cdot \frac{\pi}{4} \cdot {d_{bar}}^{2}"
+    rhs_2   = f"{bar_nos} \\cdot {fract} \\cdot {bar_dia}^{{2}}"
+    rhs_3   = bar_area
+    lhs_1   = "Area of rebars, "
     var_1   = "A_{s}"
     dim_unt = r"{in^{2}}"
-    #eq_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt)
-    str_fun_3(rhs_1, var_1, lhs_1, lhs_2, lhs_3, dim_unt)
+    eq_3(lhs_1, var_1, rhs_1, rhs_2, rhs_3, dim_unt)
     #str_fun_3("Area of rebars, ", "A_{s}", str_eq, 0, numer_1, round(bar_area,2), "in^{2}")
     return ()
 
