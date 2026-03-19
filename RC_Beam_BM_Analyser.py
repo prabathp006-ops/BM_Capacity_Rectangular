@@ -171,28 +171,23 @@ def stress_block_b1(f_c, beta_1):
     clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
 
 def stress_block_a1(alpha_1, f_c):
-    range_2("f'_{c}", 10)
-    string_r  = "stress block factor, "
-    var_1     = "\\alpha_{1}"
-    string_l  = f"{alpha_1}"
-    dim_unt   = ""
-    str_fun_1(string_r, var_1, string_l, dim_unt)
-    range_2(10.0, "f'_{c}")
-    string_r = "stress block factor, "
-    var_1    = "\\alpha_{1}"
-    str_eq   = "0.85 - 0.02 \\cdot ( \ f_{c} - 10 \ )"
-    numer_1  = f"0.85 - 0.02 \\cdot ( \ {f_c/1000} - 10 \ )"
-    string_l = alpha_1
-    str_fun_3(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
     header_1("5", "Stress Block Factor, $\\alpha_{1}$")
     if f_c <= 10000:
-        display(html_str_a1)
-        display(html_str_a2)
+        range_2("f'_{c}", 10)
+        string_r  = "stress block factor, "
+        var_1     = "\\alpha_{1}"
+        string_l  = f"{alpha_1}"
+        dim_unt   = ""
+        str_fun_1(string_r, var_1, string_l, dim_unt)
     if f_c > 10000:
-        display(html_str_b1)
-        display(html_str_b2)
+        range_2(10.0, "f'_{c}")
+        string_r = "stress block factor, "
+        var_1    = "\\alpha_{1}"
+        str_eq   = "0.85 - 0.02 \\cdot ( \ f_{c} - 10 \ )"
+        numer_1  = f"0.85 - 0.02 \\cdot ( \ {f_c/1000} - 10 \ )"
+        string_l = alpha_1
+        str_fun_3(string_r, var_1, str_eq, numer_1, round(string_l,2), "")
     clause_1("Clause 5.6.2.2 page : 5-38 to 5-39")
-    return()
 
 def eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na):
     header_1("6", "Depth of Equivalent Stress Block")
@@ -318,9 +313,9 @@ beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
 stress_block_b1(f_c, beta_1)
+stress_block_a1(alpha_1, f_c)
 
 
-#stress_block_a1(alpha_1, f_c)
 #eq_stress_block_depth(cov_eff, e_cu, depth, bar_area, f_y, alpha_1, f_c, beta_1, width, d_comp, d_na)
 #nom_flex_resist(bar_dia, f_y, eff_depth, d_comp, M_nom)
 #resist_red_fact(eff_depth, d_na, e_cu, net_tens_e, f_y, e_cl, e_tl)
