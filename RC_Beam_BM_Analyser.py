@@ -15,7 +15,10 @@ import streamlit as st
 
 # Define widgets
 
-width       = 12
+#width       = 12
+width       = st.number_input("Beam width (in)", min_value=0, value=50.0, step=0.1)
+
+
 depth       = 20
 bar_nos     = 4
 bar_dia     = 1.125
