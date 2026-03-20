@@ -14,13 +14,14 @@ import streamlit as st
 
 
 # Define widgets
-width       = st.number_input("Beam width (in)", min_value=0.0, value=12.0, step=0.1)
-depth       = st.number_input("Beam depth (in)", min_value=0.0, value=20.0, step=0.1)
-bar_nos     = st.number_input("No. of rebars", min_value=0, value=4, step=1) 
-bar_dia     = st.number_input("Rebar dia (in)", min_value=0.0, value=1.125, step=0.1)
-f_y         = st.number_input("Yield strength of rebars (psi)", min_value=0.0, value=60000.0, step=1.0)
-f_c         = st.number_input("Compressive strength of concrete (psi)", min_value=0.0, value=4000.0, step=1.0)
-cov_eff     = st.number_input("Effective cover (in)", min_value=0.0, value=2.5, step=0.1)
+def in_widg():
+    width       = st.number_input("Beam width (in)", min_value=0.0, value=12.0, step=0.1)
+    depth       = st.number_input("Beam depth (in)", min_value=0.0, value=20.0, step=0.1)
+    bar_nos     = st.number_input("No. of rebars", min_value=0, value=4, step=1) 
+    bar_dia     = st.number_input("Rebar dia (in)", min_value=0.0, value=1.125, step=0.1)
+    f_y         = st.number_input("Yield strength of rebars (psi)", min_value=0.0, value=60000.0, step=1.0)
+    f_c         = st.number_input("Compressive strength of concrete (psi)", min_value=0.0, value=4000.0, step=1.0)
+    cov_eff     = st.number_input("Effective cover (in)", min_value=0.0, value=2.5, step=0.1)
 
 #stress block factor beta_1 calculator
 def beta_1_calc(f_c):
@@ -293,6 +294,7 @@ str_red_fact, e_cl, e_tl = str_red_fact_calc(net_tens_e, f_y)
 M_cap        = str_red_fact * M_nom # (kips-in)
 # display HTML
 st.title("Moment Capacity of Rectangular Singly Reinforced Concrete Sections - AASHTO LRFD 10th Edition")
+in_widg()
 beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
