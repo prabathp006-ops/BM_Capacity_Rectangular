@@ -23,6 +23,8 @@ def in_widg():
     f_c         = st.number_input("Compressive strength of concrete (psi)", min_value=0.0, value=4000.0, step=1.0)
     cov_eff     = st.number_input("Effective cover (in)", min_value=0.0, value=2.5, step=0.1)
 
+st.title("Moment Capacity of Rectangular Singly Reinforced Concrete Sections - AASHTO LRFD 10th Edition")
+in_widg()
 #stress block factor beta_1 calculator
 def beta_1_calc(f_c):
     if f_c >= 2500 and f_c <= 4000:
@@ -293,8 +295,6 @@ net_tens_e   = e_cu * (eff_depth - d_na)/d_na
 str_red_fact, e_cl, e_tl = str_red_fact_calc(net_tens_e, f_y)
 M_cap        = str_red_fact * M_nom # (kips-in)
 # display HTML
-st.title("Moment Capacity of Rectangular Singly Reinforced Concrete Sections - AASHTO LRFD 10th Edition")
-in_widg()
 beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
