@@ -293,8 +293,7 @@ net_tens_e   = e_cu * (eff_depth - d_na)/d_na
 str_red_fact, e_cl, e_tl = str_red_fact_calc(net_tens_e, f_y)
 M_cap        = str_red_fact * M_nom # (kips-in)
 # display HTML
-st.title("Moment Capacity of Rectangular Singly Reinforced Concrete Sections
-As per AASHTO LRFD 10th Edition 2024")
+st.title("Moment Capacity of Rectangular Singly Reinforced Concrete Sections as per AASHTO LRFD 10th Edition 2024")
 beam_dim_1(width, depth)
 rein_prop_1(bar_nos, bar_dia, bar_area)
 mat_prop_1(f_y, f_c, beta_1)
