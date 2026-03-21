@@ -30,9 +30,11 @@ import matplotlib.pyplot as plt
 def draw_beam_with_rebars(width, height, num_rebars, cover):
     fig, ax = plt.subplots(figsize=(6, 4))
     
-    # Draw beam rectangle
-    beam_rect = plt.Rectangle((0, 0), width, height, 
-                              fill=False, edgecolor="black", linewidth=2)
+    # Draw beam rectangle with grey fill
+    beam_rect = plt.Rectangle(
+        (0, 0), width, height,
+        fill=True, facecolor="lightgrey", edgecolor="black", linewidth=2
+    )
     ax.add_patch(beam_rect)
     
     # Calculate rebar positions
@@ -52,6 +54,7 @@ def draw_beam_with_rebars(width, height, num_rebars, cover):
     ax.axis("off")
     
     return fig
+
 
 # Streamlit UI
 fig = draw_beam_with_rebars(width, depth, bar_nos, cov_eff)
