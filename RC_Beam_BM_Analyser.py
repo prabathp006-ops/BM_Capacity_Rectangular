@@ -14,15 +14,6 @@ import streamlit as st
 # title document
 st.title("Moment Capacity of Rectangular Singly Reinforced Concrete Sections - AASHTO LRFD 10th Edition")
 
-# Define widgets
-#width       = st.number_input("Beam width (in)", min_value=0.0, value=12.0, step=0.1)
-#depth       = st.number_input("Beam depth (in)", min_value=0.0, value=20.0, step=0.1)
-#bar_nos     = st.number_input("No. of rebars", min_value=0, value=4, step=1) 
-#bar_dia     = st.number_input("Rebar dia (in)", min_value=0.0, value=1.125, step=0.1)
-#f_y         = st.number_input("Yield strength of rebars (psi)", min_value=0.0, value=60000.0, step=1.0)
-#f_c         = st.number_input("Compressive strength of concrete (psi)", min_value=0.0, value=4000.0, step=1.0)
-#cov_eff     = st.number_input("Effective cover (in)", min_value=0.0, value=2.5, step=0.1)
-
 # draw beam and rebar diagrams
 def draw_beam_with_rebars(width, height, num_rebars, cover, bar_dia):
     fig, ax = plt.subplots(figsize=(4, 3))  # compact figure
@@ -34,16 +25,18 @@ def draw_beam_with_rebars(width, height, num_rebars, cover, bar_dia):
     )
     ax.add_patch(beam_rect)
     
-    # Calculate rebar positions
+    # Effective spacing considering cover on both sides
     if num_rebars > 1:
         spacing = (width - 2 * cover) / (num_rebars - 1)
     else:
         spacing = 0
-    y_pos = cover  # offset from bottom
+    
+    # Vertical position of rebars (cover from bottom)
+    y_pos = cover
     
     for i in range(num_rebars):
+        # Horizontal positions start at "cover" and end at "width - cover"
         x_pos = cover + i * spacing if num_rebars > 1 else width / 2
-        # Use bar_dia/2 as radius
         rebar = plt.Circle((x_pos, y_pos), radius=bar_dia/2, 
                            color="red", fill=True)
         ax.add_patch(rebar)
@@ -55,6 +48,7 @@ def draw_beam_with_rebars(width, height, num_rebars, cover, bar_dia):
     ax.axis("off")
     
     return fig
+
 
 
 # Layout: inputs left, figure right
