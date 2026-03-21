@@ -6,7 +6,6 @@ import math
 from IPython.display import display, Markdown
 from IPython.display import HTML
 from scipy.interpolate import interp1d
-
 import ast
 import ipywidgets as widgets
 from IPython.display import display
@@ -23,6 +22,40 @@ bar_dia     = st.number_input("Rebar dia (in)", min_value=0.0, value=1.125, step
 f_y         = st.number_input("Yield strength of rebars (psi)", min_value=0.0, value=60000.0, step=1.0)
 f_c         = st.number_input("Compressive strength of concrete (psi)", min_value=0.0, value=4000.0, step=1.0)
 cov_eff     = st.number_input("Effective cover (in)", min_value=0.0, value=2.5, step=0.1)
+
+# draw beam and rebar diagrams
+import streamlit as st
+import matplotlib.pyplot as plt
+
+def draw_beam_with_rebars(width, height, num_rebars, cover):
+    fig, ax = plt.subplots(figsize=(6, 4))
+    
+    # Draw beam rectangle
+    beam_rect = plt.Rectangle((0, 0), width, height, 
+                              fill=False, edgecolor="black", linewidth=2)
+    ax.add_patch(beam_rect)
+    
+    # Calculate rebar positions
+    spacing = (width - 2 * cover) / (num_rebars - 1) if num_rebars > 1 else 0
+    y_pos = cover  # offset from bottom
+    
+    for i in range(num_rebars):
+        x_pos = cover + i * spacing if num_rebars > 1 else width / 2
+        rebar = plt.Circle((x_pos, y_pos), radius=width * 0.02, 
+                           color="red", fill=True)
+        ax.add_patch(rebar)
+    
+    # Formatting
+    ax.set_xlim(-width * 0.1, width * 1.1)
+    ax.set_ylim(-height * 0.1, height * 1.1)
+    ax.set_aspect("equal", adjustable="box")
+    ax.axis("off")
+    
+    return fig
+
+# Streamlit UI
+fig = draw_beam_with_rebars(width, depth, bar_nos, cov_eff)
+st.pyplot(fig)
 
 #stress block factor beta_1 calculator
 def beta_1_calc(f_c):
