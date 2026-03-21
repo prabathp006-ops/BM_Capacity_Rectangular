@@ -15,20 +15,17 @@ import streamlit as st
 st.title("Moment Capacity of Rectangular Singly Reinforced Concrete Sections - AASHTO LRFD 10th Edition")
 
 # Define widgets
-width       = st.number_input("Beam width (in)", min_value=0.0, value=12.0, step=0.1)
-depth       = st.number_input("Beam depth (in)", min_value=0.0, value=20.0, step=0.1)
-bar_nos     = st.number_input("No. of rebars", min_value=0, value=4, step=1) 
-bar_dia     = st.number_input("Rebar dia (in)", min_value=0.0, value=1.125, step=0.1)
-f_y         = st.number_input("Yield strength of rebars (psi)", min_value=0.0, value=60000.0, step=1.0)
-f_c         = st.number_input("Compressive strength of concrete (psi)", min_value=0.0, value=4000.0, step=1.0)
-cov_eff     = st.number_input("Effective cover (in)", min_value=0.0, value=2.5, step=0.1)
+#width       = st.number_input("Beam width (in)", min_value=0.0, value=12.0, step=0.1)
+#depth       = st.number_input("Beam depth (in)", min_value=0.0, value=20.0, step=0.1)
+#bar_nos     = st.number_input("No. of rebars", min_value=0, value=4, step=1) 
+#bar_dia     = st.number_input("Rebar dia (in)", min_value=0.0, value=1.125, step=0.1)
+#f_y         = st.number_input("Yield strength of rebars (psi)", min_value=0.0, value=60000.0, step=1.0)
+#f_c         = st.number_input("Compressive strength of concrete (psi)", min_value=0.0, value=4000.0, step=1.0)
+#cov_eff     = st.number_input("Effective cover (in)", min_value=0.0, value=2.5, step=0.1)
 
 # draw beam and rebar diagrams
-import streamlit as st
-import matplotlib.pyplot as plt
-
-def draw_beam_with_rebars(width, height, num_rebars, cover):
-    fig, ax = plt.subplots(figsize=(6, 4))
+def draw_beam_with_rebars(width, height, num_rebars, cover, bar_dia):
+    fig, ax = plt.subplots(figsize=(4, 3))  # smaller figure
     
     # Draw beam rectangle with grey fill
     beam_rect = plt.Rectangle(
@@ -43,7 +40,7 @@ def draw_beam_with_rebars(width, height, num_rebars, cover):
     
     for i in range(num_rebars):
         x_pos = cover + i * spacing if num_rebars > 1 else width / 2
-        rebar = plt.Circle((x_pos, y_pos), radius=width * 0.02, 
+        rebar = plt.Circle((x_pos, y_pos), radius=bar_dia/2, 
                            color="red", fill=True)
         ax.add_patch(rebar)
     
@@ -55,10 +52,23 @@ def draw_beam_with_rebars(width, height, num_rebars, cover):
     
     return fig
 
+# Layout: inputs left, figure right
+col1, col2 = st.columns([1, 1])
 
-# Streamlit UI
-fig = draw_beam_with_rebars(width, depth, bar_nos, cov_eff)
-st.pyplot(fig)
+with col1:
+    st.subheader("Beam Parameters")
+    width       = st.number_input("Beam width (in)", min_value=0.0, value=12.0, step=0.1)
+    depth       = st.number_input("Beam depth (in)", min_value=0.0, value=20.0, step=0.1)
+    bar_nos     = st.number_input("No. of rebars", min_value=0, value=4, step=1) 
+    bar_dia     = st.number_input("Rebar dia (in)", min_value=0.0, value=1.125, step=0.1)
+    f_y         = st.number_input("Yield strength of rebars (psi)", min_value=0.0, value=60000.0, step=1.0)
+    f_c         = st.number_input("Compressive strength of concrete (psi)", min_value=0.0, value=4000.0, step=1.0)
+    cov_eff     = st.number_input("Effective cover (in)", min_value=0.0, value=2.5, step=0.1)
+
+with col2:
+    st.subheader("Beam Section")
+    fig = draw_beam_with_rebars(width, depth, bar_nos, cov_eff, bar_dia)
+    st.pyplot(fig)
 
 #stress block factor beta_1 calculator
 def beta_1_calc(f_c):
