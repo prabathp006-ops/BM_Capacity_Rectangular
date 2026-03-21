@@ -25,7 +25,7 @@ st.title("Moment Capacity of Rectangular Singly Reinforced Concrete Sections - A
 
 # draw beam and rebar diagrams
 def draw_beam_with_rebars(width, height, num_rebars, cover, bar_dia):
-    fig, ax = plt.subplots(figsize=(4, 3))  # smaller figure
+    fig, ax = plt.subplots(figsize=(4, 3))  # compact figure
     
     # Draw beam rectangle with grey fill
     beam_rect = plt.Rectangle(
@@ -35,11 +35,15 @@ def draw_beam_with_rebars(width, height, num_rebars, cover, bar_dia):
     ax.add_patch(beam_rect)
     
     # Calculate rebar positions
-    spacing = (width - 2 * cover) / (num_rebars - 1) if num_rebars > 1 else 0
+    if num_rebars > 1:
+        spacing = (width - 2 * cover) / (num_rebars - 1)
+    else:
+        spacing = 0
     y_pos = cover  # offset from bottom
     
     for i in range(num_rebars):
         x_pos = cover + i * spacing if num_rebars > 1 else width / 2
+        # Use bar_dia/2 as radius
         rebar = plt.Circle((x_pos, y_pos), radius=bar_dia/2, 
                            color="red", fill=True)
         ax.add_patch(rebar)
@@ -51,6 +55,7 @@ def draw_beam_with_rebars(width, height, num_rebars, cover, bar_dia):
     ax.axis("off")
     
     return fig
+
 
 # Layout: inputs left, figure right
 col1, col2 = st.columns([1, 1])
